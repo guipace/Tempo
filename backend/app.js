@@ -6,6 +6,7 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { ValidationError } = require('sequelize');
+const bodyParser = require('body-parser');
 
 // Local Imports
 const routes = require('./routes');
@@ -19,7 +20,8 @@ const app = express();
 // Middleware
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 if (!isProduction) {
     // Enable cors only in development environment
     app.use(cors());
