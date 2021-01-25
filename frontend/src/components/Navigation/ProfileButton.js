@@ -33,9 +33,9 @@ export default function ProfileButton({ user }) {
             <button onClick={openMenu}>
             <i class="fas fa-user-astronaut" />
             </button>
-            <span>{user.firstName}</span>
+            <span>{`Hi,${user.firstName}!`}</span>
             {showMenu && (
-                <ul className="profile-dropdown">
+                <ul className="profile-dropdown fixed top-10 bg-gray-300">
                     <li>{user.username}</li>
                     <li>{user.email}</li>
                     <li>
