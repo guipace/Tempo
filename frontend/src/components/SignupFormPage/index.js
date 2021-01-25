@@ -57,7 +57,7 @@ const SignupFormPage = () => {
       <label>
         E-mail
         <input
-          type='text'
+          type='search'
           placeholder='Enter your e-mail'
           value={email}
           onChange={(e) => setEmail(e.target.value)}

@@ -22,11 +22,23 @@ export default function Navigation({ isLoaded }) {
     }
 
     return(
-        <ul>
-            <li>
-                <NavLink exact to='/'>Home</NavLink>
+        <nav className="w-screen fixed grid grid-cols-8 content-center shadow space-x-4 h-10 bg-gray-300">
+            <div className="col-span-1 grid grid-cols-2">
+                <span className="text-center font-bold tracking-widest">TEMPO</span>
+                <NavLink exact to='/' className="text-center"><i className="fas fa-home"></i> Home</NavLink>
+            </div>
+            <div  className="col-span-6">
+                <form>
+                    <input
+                        className="w-full pl-1"
+                        type='text'
+                        placeholder='Search'
+                    />
+                </form>
+            </div>
+            <div className="col-span-1 grid grid-cols-2">
                 {isLoaded && sessionLinks}
-            </li>
-        </ul>
+            </div>
+        </nav>
     );
 }

@@ -33,6 +33,7 @@ export default function ProfileButton({ user }) {
             <button onClick={openMenu}>
             <i class="fas fa-user-astronaut" />
             </button>
+            <span>{user.firstName}</span>
             {showMenu && (
                 <ul className="profile-dropdown">
                     <li>{user.username}</li>
