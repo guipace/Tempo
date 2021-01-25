@@ -25,9 +25,9 @@ module.exports = {
       { name: 'Techno'},
       { name: 'Trance'},
       { name: 'Psytrance'},
-      { name: 'Psytrance Full-On'},
-      { name: 'Psytrance Dark'},
-      { name: 'Psytrance progressive'},
+      { name: 'Full-On Psytrance'},
+      { name: 'Dark Psytrance'},
+      { name: 'Progressive Psytrance'},
     ], {});
   },
 
