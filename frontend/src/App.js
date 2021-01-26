@@ -22,7 +22,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-
+            {/* TODO: COMPLETE ROUTE */}
           </Route>
           <Route path='/login'>
             <LoginFormPage />
@@ -31,13 +31,13 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path='/home'>
-
+            {/* TODO: COMPLETE ROUTE */}
           </Route>
           <Route path='/user/:id'>
-
+            {/* TODO: COMPLETE ROUTE */}
           </Route>
           <Route path='/track/:id'>
-
+            {/* TODO: COMPLETE ROUTE */}
           </Route>
           <Route>
             <h1>PAGE NOT FOUND</h1>
