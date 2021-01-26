@@ -19,6 +19,10 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING(100),
       },
+      awsUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       artistId: {
         type: Sequelize.INTEGER,
         allowNull: false,

@@ -5,6 +5,7 @@ import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import Upload from './components/Upload';
 import { restoreUser } from './store/session';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            {/* TODO: COMPLETE ROUTE */}
+            {/* TODO: COMPLETE HOME ROUTE */}
           </Route>
           <Route path='/login'>
             <LoginFormPage />
@@ -30,8 +31,8 @@ function App() {
           <Route path='/signup'>
             <SignupFormPage />
           </Route>
-          <Route path='/home'>
-            {/* TODO: COMPLETE ROUTE */}
+          <Route path='/upload'>
+            <Upload />
           </Route>
           <Route path='/user/:id'>
             {/* TODO: COMPLETE ROUTE */}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { login, signupUser } from '../../store/session';
-import './SignupFormPage.css';
 
 const SignupFormPage = () => {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ const SignupFormPage = () => {
 
     setInputErrors(errors);
 
-  }, [username, firstName, lastName, websiteUrl, avatarUrl, email, confirmPassword]);
+  }, [username, firstName, lastName, websiteUrl, avatarUrl, email, password, confirmPassword]);
 
   if (sessionUser) return (
     <Redirect to='/' />

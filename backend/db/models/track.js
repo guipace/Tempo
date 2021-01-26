@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       type: DataTypes.STRING,
-      validate: {
-        max: {
-          args: [100],
-        }
-      },
+      allowNull: false,
+    },
+    awsUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,
