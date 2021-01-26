@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import { restoreUser } from './store/session';
 
 function App() {
@@ -16,18 +17,34 @@ function App() {
 
   return isLoaded && (
     <>
-      <h1>Hello from App</h1>
       <Navigation isLoaded={isLoaded}/>
+      <div id='placeholder-for-navbar' className='h-10'></div>
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+
+          </Route>
           <Route path='/login'>
             <LoginFormPage />
           </Route>
           <Route path='/signup'>
             <SignupFormPage />
           </Route>
+          <Route path='/home'>
+
+          </Route>
+          <Route path='/user/:id'>
+
+          </Route>
+          <Route path='/track/:id'>
+
+          </Route>
+          <Route>
+            <h1>PAGE NOT FOUND</h1>
+          </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

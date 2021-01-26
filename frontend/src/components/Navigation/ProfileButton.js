@@ -30,16 +30,17 @@ export default function ProfileButton({ user }) {
 
     return (
         <>
-            <button onClick={openMenu}>
-            <i class="fas fa-user-astronaut" />
-            </button>
+            <div onClick={openMenu} className="flex justify-center items-center text-silver hover:bg-independence hover:text-white">
+                <i class="fas fa-user-astronaut" />
+            </div>
+            <div className="flex justify-center items-center text-silver">
+                <span>{`Hi, ${user.firstName}!`}</span>
+            </div>
             {showMenu && (
-                <ul className="profile-dropdown">
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
-                    <li>
-                        <button onClick={logoutUser}>Log Out</button>
-                    </li>
+                <ul className="profile-dropdown fixed top-10 bg-space-cadet text-silver">
+                    <li className="p-2">{`Username: ${user.username}`}</li>
+                    <li className="p-2">{`E-mail: ${user.email}`}</li>
+                    <li onClick={logoutUser} className="p-2 hover:bg-independence hover:text-white">Log Out</li>
                 </ul>
             )}
         </>
