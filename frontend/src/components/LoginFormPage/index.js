@@ -28,7 +28,7 @@ const LoginFormPage = () => {
     return (
         <div className="w-screen mx-auto h-screen flex flex-col justify-center items-center bg-background2 bg-center bg-cover">
             <form onSubmit={handleSubmit} className="px-8 py-4 w-1/3 mb-4 border-t-8 border-independence rounded-lg shadow-lg bg-white bg-opacity-90">
-                <h1 className="block text-2xl text-space-cadet my-2 text-center">Log-in to Tempo</h1>
+                <h1 className="block text-2xl text-space-cadet my-2 text-center">Log-in to <span className="font-bold tracking-widest">TEMPO</span></h1>
                 <ul id="login-errors" className="block my-2 text-center text-red-600 font-bold">
                     {inputErrors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
@@ -54,7 +54,10 @@ const LoginFormPage = () => {
                         className="block appearance-none w-full px-2 py-2 rounded shadow"
                     />
                 </label>
-                <button type='submit' className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Sign-In</button>
+                <div className='my-2 flex justify-around'>
+                    <button type='submit' className="w-2/6 bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Sign-In</button>
+                    <button type='button' onClick={() => {dispatch(login({ credential: 'DemoUser', password: 'password' }))}} className="w-2/6 bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Demo User</button>
+                </div>
             </form>
             <div className="p-1 bg-white bg-opacity-80 rounded">
                 Don't have an account?

@@ -21,11 +21,26 @@ function App() {
       <div id='placeholder-for-navbar' className='h-10'></div>
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+
+          </Route>
           <Route path='/login'>
             <LoginFormPage />
           </Route>
           <Route path='/signup'>
             <SignupFormPage />
+          </Route>
+          <Route path='/home'>
+
+          </Route>
+          <Route path='/user/:id'>
+
+          </Route>
+          <Route path='/track/:id'>
+
+          </Route>
+          <Route>
+            <h1>PAGE NOT FOUND</h1>
           </Route>
         </Switch>
       )}

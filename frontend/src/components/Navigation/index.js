@@ -16,10 +16,10 @@ export default function Navigation({ isLoaded }) {
         sessionLinks = (
             <>
                 <div className="flex justify-center items-center text-silver hover:bg-independence hover:text-white">
-                    <NavLink to='/login'>Sign-in</NavLink>
+                    <NavLink to='/login' activeClassName="text-mandarin">Sign-in</NavLink>
                 </div>
                 <div className="flex justify-center items-center text-silver hover:bg-independence hover:text-white">
-                    <NavLink to='/signup'>Register</NavLink>
+                    <NavLink to='/signup' activeClassName="text-mandarin">Register</NavLink>
                 </div>
             </>
         );
@@ -32,7 +32,7 @@ export default function Navigation({ isLoaded }) {
                     <span className="font-bold text-silver tracking-widest">TEMPO</span>
                 </div>
                 <div className="flex justify-center items-center text-silver hover:bg-independence hover:text-white">
-                    <NavLink exact to='/'><i className="fas fa-home"></i> Home</NavLink>
+                    <NavLink exact to='/' activeClassName="text-mandarin"><i className="fas fa-home"></i> Home</NavLink>
                 </div>
             </div>
             <div  className="col-span-6 mx-2 grid grid-cols-1">
