@@ -11,11 +11,14 @@ module.exports = {
         'independence': '#4F5D75',
         'silver': '#BFC0C0',
         'mandarin': '#EA5C1F',
+        'mandarin-dark': '#BB4411',
       },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      fontWeight: ['hover'],
+    },
   },
   plugins: [],
 }

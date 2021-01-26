@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { login } from '../../store/session';
 import './LoginFormPage.css';
 
@@ -51,12 +51,15 @@ const LoginFormPage = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="block appearance-none w-full hover:border-grey px-2 py-2 rounded shadow"
+                        className="block appearance-none w-full px-2 py-2 rounded shadow"
                     />
                 </label>
-                <button type='submit' className="bg-mandarin hover:bg-red-800 text-white font-bold py-2 px-4 rounded">Sign-In</button>
+                <button type='submit' className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Sign-In</button>
             </form>
-            <div className="">Don't have an account? Click here to join Tempo.</div>
+            <div className="p-1 bg-white bg-opacity-80 rounded">
+                Don't have an account?
+                <Link to='/signup' className="text-mandarin font-medium hover:font-bold"> Click here to join Tempo</Link>
+            </div>
         </div>
     );
 }

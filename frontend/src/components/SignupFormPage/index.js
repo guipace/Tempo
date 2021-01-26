@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { signupUser } from '../../store/session';
 import './SignupFormPage.css';
 
@@ -40,52 +40,63 @@ const SignupFormPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {inputErrors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Username
-        <input
-          type='text'
-          placeholder='Enter your username'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        E-mail
-        <input
-          type='search'
-          placeholder='Enter your e-mail'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type='password'
-          placeholder='Enter your password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Confirm Password
-        <input
-          type='password'
-          placeholder='Confirm your password'
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type='submit'>Sign-In</button>
-    </form>
+    <div className="w-screen mx-auto h-screen flex flex-col justify-center items-center bg-background2 bg-center bg-cover">
+      <form onSubmit={handleSubmit} className="px-8 py-4 w-1/3 mb-4 border-t-8 border-independence rounded-lg shadow-lg bg-white bg-opacity-90">
+        <h1 className="block text-2xl text-space-cadet my-2 text-center">Sign-up to Tempo</h1>
+        <ul id="login-errors" className="block my-2 text-center text-red-600 font-bold">
+          {inputErrors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+        <label className="block font-bold text-space-cadet mb-2">
+          Username
+          <input
+            type='text'
+            placeholder='Enter your username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
+          E-mail
+          <input
+            type='search'
+            placeholder='Enter your e-mail'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
+          Password
+          <input
+            type='password'
+            placeholder='Enter your password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
+          Confirm Password
+          <input
+            type='password'
+            placeholder='Confirm your password'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <button type='submit' className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Sign-In</button>
+      </form>
+      <div className="p-1 bg-white bg-opacity-80 rounded">
+                Already have an account?
+                <Link to='/login' className="text-mandarin font-medium hover:font-bold"> Click here to log-in</Link>
+            </div>
+    </div>
   );
 };
 
