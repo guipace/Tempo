@@ -9,10 +9,16 @@ export async function fetch(url, options = {}) {
     // if the options.method is not 'GET', then set the "Content-Type" header to
         // "application/json", and set the "XSRF-TOKEN" header to the value of the
         // "XSRF-TOKEN" cookie
-    if(options.method.toUpperCase() !== 'GET') {
-        options.headers['Content-Type'] = options.headers['Content-Type'] || 'application/json';
-        options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
-    }
+        if (options.method.toUpperCase() !== "GET") {
+            if (options.headers["Content-Type"] === "multipart/form-data") {
+                console.log("REMOVING CONTENT-TYPE HEADER");
+                delete options.headers["Content-Type"];
+            } else {
+                options.headers["Content-Type"] =
+                options.headers["Content-Type"] || "application/json";
+            }
+            options.headers["XSRF-Token"] = Cookies.get("XSRF-TOKEN");
+        }
 
     // call the default window's fetch with the url and the options passed in
     const res = await window.fetch(url, options);

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
-import { signupUser } from '../../store/session';
+import { Redirect } from 'react-router-dom';
+import { getGenres, removeGenres } from '../../store/ui';
+import { newTrack } from '../../store/track';
 
 const Upload = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const genres = useSelector(state => state.ui.genres);
     const [ title, setTitle ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ genreId, setGenreId ] = useState('');
     const [ imageUrl, setImageUrl ] = useState('');
-    const [ awsUrl, setAwsUrl ] = useState('');
     const [ trackFile, setTrackFile ] = useState(null);
     const [ inputErrors, setInputErrors ] = useState([]);
 
+    // TODO: COMPLETE VALIDATION ERRORS
     useEffect(() => {
         const errors = [];
 
@@ -24,27 +26,39 @@ const Upload = () => {
 
     }, [title, imageUrl]);
 
+    useEffect(() => {
+        dispatch(getGenres());
+
+        return dispatch(removeGenres());
+    }, [dispatch]);
+
     if (!sessionUser) return (
         <Redirect to='/login' />
     )
 
-    // TODO: FINISH HANDLE SUBMIT
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // VALID FILE EXTENSIONS
+        // WAV, FLAC, AIFF, ALAC, OGG, MP2, MP3, AAC, AMR, WMA
 
         const track = {
             title,
             description,
             imageUrl,
-            awsUrl,
+            trackFile,
             userId: sessionUser.id,
             genreId,
         }
 
-        return dispatch(signupUser({ title }))
+        console.log('HANDLESUBMIT', trackFile, track);
+
+        dispatch(newTrack(track))
             .catch((res) => {
                 if (res.data && res.data.errors) setInputErrors(res.data.errors);
             });
+
+        // TODO: REDIRECT TO NEW TRACK
     };
 
     return (
@@ -78,13 +92,17 @@ const Upload = () => {
             <label className="block font-bold text-space-cadet mb-2">
             Genre
                 <select
-                    placeholder='Enter a description'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={genreId}
+                    onChange={(e) => setGenreId(e.target.value)}
                     required
                     className="block appearance-none w-full px-2 py-2 rounded shadow"
                 >
-                    {'TODO: OPTIONS'}
+                    <option value="" disabled hidden>Choose genre</option>
+                    {genres.map((genre) => {
+                        return (
+                            <option key={genre.id} value={genre.id}>{genre.name}</option>
+                        )
+                    })}
                 </select>
             </label>
             <label className="block font-bold text-space-cadet mb-2">
@@ -101,7 +119,7 @@ const Upload = () => {
             Audio File
                 <input
                     type='file'
-                    onChange={(e) => setTrackFile(e.target.value)}
+                    onChange={(e) => setTrackFile(e.target.files[0])}
                     required
                     className="block appearance-none w-full bg-white px-2 py-2 rounded shadow"
                 />

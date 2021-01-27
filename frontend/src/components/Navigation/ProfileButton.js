@@ -32,13 +32,13 @@ export default function ProfileButton({ user }) {
     return (
         <>
             <div className="flex justify-center items-center text-silver">
-                <NavLink exact to='/upload' activeClassName="text-mandarin"><i class="fas fa-plus"></i> Upload</NavLink>
+                <NavLink exact to='/upload' activeClassName="text-mandarin"><i className="fas fa-plus"></i> Upload</NavLink>
             </div>
             <div className="flex justify-center items-center text-silver">
                 <span>{`Hi, ${user.firstName}!`}</span>
             </div>
             <div onClick={openMenu} className="flex justify-center items-center text-silver hover:bg-independence hover:text-white">
-                <i class="fas fa-user-astronaut" />
+                <i className="fas fa-user-astronaut" />
             </div>
             {showMenu && (
                 <ul className="profile-dropdown fixed top-10 right-0 bg-space-cadet text-silver">
