@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
+    "antd": "^4.11.2",
     "autoprefixer": "^9.8.6",
     "js-cookie": "^2.2.1",
     "postcss": "^7.0.35",
