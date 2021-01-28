@@ -6,6 +6,7 @@ import SignupFormPage from './components/SignupFormPage';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Upload from './components/Upload';
+import TrackPage from './components/TrackPage';
 import { restoreUser } from './store/session';
 
 function App() {
@@ -37,8 +38,8 @@ function App() {
           <Route path='/user/:id'>
             {/* TODO: COMPLETE ROUTE */}
           </Route>
-          <Route path='/track/:id'>
-            {/* TODO: COMPLETE ROUTE */}
+          <Route path='/tracks/:id'>
+            <TrackPage />
           </Route>
           <Route>
             <h1>PAGE NOT FOUND</h1>

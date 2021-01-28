@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      artistId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

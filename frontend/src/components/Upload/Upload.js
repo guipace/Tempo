@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { getGenres, removeGenres } from '../../store/ui';
 import { newTrack } from '../../store/track';
 
 const Upload = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const genres = useSelector(state => state.ui.genres);
     const [ title, setTitle ] = useState('');
@@ -45,20 +46,15 @@ const Upload = () => {
         const track = {
             title,
             description,
-            imageUrl,
+            imageUrl: imageUrl || '/img/trackDefault.jfif',
             trackFile,
             userId: sessionUser.id,
             genreId,
         }
 
-        console.log('HANDLESUBMIT', trackFile, track);
+        const trackDispatch = await dispatch(newTrack(track))
 
-        dispatch(newTrack(track))
-            .catch((res) => {
-                if (res.data && res.data.errors) setInputErrors(res.data.errors);
-            });
-
-        // TODO: REDIRECT TO NEW TRACK
+        history.push(`/tracks/${trackDispatch.id}`)
     };
 
     return (
