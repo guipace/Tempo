@@ -28,6 +28,7 @@ module.exports = {
       { name: 'Full-On Psytrance'},
       { name: 'Dark Psytrance'},
       { name: 'Progressive Psytrance'},
+      { name: 'Other'},
     ], {});
   },
 

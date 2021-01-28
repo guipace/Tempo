@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { login, signupUser } from '../../store/session';
-import './SignupFormPage.css';
 
 const SignupFormPage = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const [ username, setUsername ] = useState('');
+  const [ firstName, setFirstName ] = useState('');
+  const [ lastName, setLastName ] = useState('');
   const [ email, setEmail ] = useState('');
+  const [ websiteUrl, setWebsiteUrl ] = useState('');
+  const [ avatarUrl, setAvatarUrl ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
   const [ inputErrors, setInputErrors ] = useState([]);
@@ -16,15 +19,19 @@ const SignupFormPage = () => {
   useEffect(() => {
     const errors = [];
 
-    if(username && username.length < 4) errors.push('Username must have more than 4 characters');
-    if(username.length > 30) errors.push('Username must have less than 30 characters');
-    if(email && email.length < 3) errors.push('E-mail must have more than 3 characters');
+    if(username && username.length < 4) errors.push('Username must have more than 3 characters');
+    if(username.length > 30) errors.push('Username must have 30 or fewer characters');
+    if(firstName.length > 50) errors.push('First name must have 50 or fewer characters');
+    if(lastName.length > 50) errors.push('Last name must have 50 or fewer characters');
+    if(email && email.length < 3) errors.push('E-mail must have more than 2 characters');
     if(email.length > 256) errors.push('E-mail must have less than 256 characters');
+    if(websiteUrl.length > 500) errors.push('Website URL must have 500 or fewer characters');
+    if(avatarUrl.length > 500) errors.push('Avatar URL must have 500 or fewer characters');
     if(confirmPassword && confirmPassword !== password) errors.push("Your password doesn't match");
 
     setInputErrors(errors);
 
-  }, [username, email, confirmPassword]);
+  }, [username, firstName, lastName, websiteUrl, avatarUrl, email, password, confirmPassword]);
 
   if (sessionUser) return (
     <Redirect to='/' />
@@ -33,7 +40,17 @@ const SignupFormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    return dispatch(signupUser({ username, email, password }))
+    const user = {
+      username,
+      firstName,
+      lastName,
+      email,
+      websiteUrl,
+      avatarUrl: avatarUrl || '/img/userDefault.png',
+      password
+    }
+
+    return dispatch(signupUser(user))
       .catch((res) => {
         if (res.data && res.data.errors) setInputErrors(res.data.errors);
       });
@@ -58,6 +75,28 @@ const SignupFormPage = () => {
           />
         </label>
         <label className="block font-bold text-space-cadet mb-2">
+          First Name
+          <input
+            type='text'
+            placeholder='Enter your first name'
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
+          Last Name
+          <input
+            type='text'
+            placeholder='Enter your last name'
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
           E-mail
           <input
             type='search'
@@ -65,6 +104,26 @@ const SignupFormPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
+          Website
+          <input
+            type='text'
+            placeholder='Enter your website (optional)'
+            value={websiteUrl}
+            onChange={(e) => setWebsiteUrl(e.target.value)}
+            className="block appearance-none w-full px-2 py-2 rounded shadow"
+          />
+        </label>
+        <label className="block font-bold text-space-cadet mb-2">
+          Profile Image
+          <input
+            type='text'
+            placeholder='Enter the URL for an image (optional)'
+            value={avatarUrl}
+            onChange={(e) => setAvatarUrl(e.target.value)}
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>

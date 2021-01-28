@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import ProfileButton from './ProfileButton';
-import './Navigation.css';
 
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -35,7 +34,7 @@ export default function Navigation({ isLoaded }) {
                     <NavLink exact to='/' activeClassName="text-mandarin"><i className="fas fa-home"></i> Home</NavLink>
                 </div>
             </div>
-            <div  className="col-span-6 mx-2 grid grid-cols-1">
+            <div  className="col-span-5 mx-2 grid grid-cols-1">
                 <div className="flex justify-center">
                     <form className="w-full flex items-center">
                         <input
@@ -46,7 +45,7 @@ export default function Navigation({ isLoaded }) {
                     </form>
                 </div>
             </div>
-            <div className="col-span-1 grid grid-cols-2">
+            <div className="col-span-2 grid grid-cols-3">
                 {isLoaded && sessionLinks}
             </div>
         </nav>

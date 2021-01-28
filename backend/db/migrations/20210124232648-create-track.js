@@ -9,17 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING(200),
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       imageUrl: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(500),
       },
-      artistId: {
+      awsUrl: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

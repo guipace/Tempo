@@ -40,13 +40,13 @@ module.exports = (sequelize, DataTypes) => {
     websiteUrl: {
       type: DataTypes.STRING,
       validate: {
-        len: [0, 100]
+        len: [0, 500]
       },
     },
     avatarUrl: {
       type: DataTypes.STRING,
       validate: {
-        len: [0, 100]
+        len: [0, 500]
       },
     },
     hashedPassword: {
@@ -79,8 +79,8 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Comment, { foreignKey: 'userId' });
   };
   User.prototype.toSafeObject = function() { // cannot be an arrow function
-    const { id, username, email } = this; // context will be the User instance
-    return { id, username, email };
+    const { id, username, email, firstName, lastName, websiteUrl, avatarUrl } = this; // context will be the User instance
+    return { id, username, email, firstName, lastName, websiteUrl, avatarUrl };
   };
   User.prototype.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -102,11 +102,15 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
   };
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ username, firstName, lastName, email, websiteUrl, avatarUrl, password }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
+      firstName,
+      lastName,
       email,
+      websiteUrl,
+      avatarUrl,
       hashedPassword,
     });
     return await User.scope('currentUser').findByPk(user.id);

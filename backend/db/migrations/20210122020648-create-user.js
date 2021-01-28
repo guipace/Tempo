@@ -14,7 +14,7 @@ module.exports = {
         unique: true,
       },
       email: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(256),
         allowNull: false,
         unique: true,
       },
@@ -27,10 +27,10 @@ module.exports = {
         allowNull: false,
       },
       websiteUrl: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(500),
       },
       avatarUrl: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(500),
       },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
