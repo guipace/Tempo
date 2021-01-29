@@ -11,7 +11,7 @@ const UserCard = ({track}) => {
                 </div>
                 <div className='flex flex-col pl-5'>
                     <div>{track.User.firstName}</div>
-                    <div><a href={track.User.websiteUrl}>{track.User.websiteUrl}</a></div>
+                    <div className='hover:text-mandarin'><a href={track.User.websiteUrl}>{track.User.websiteUrl}</a></div>
                 </div>
             </div>
         </>

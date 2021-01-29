@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Upload from './components/Upload';
 import TrackPage from './components/TrackPage';
+import UserPage from './components/User';
 import { restoreUser } from './store/session';
 
 function App() {
@@ -35,10 +36,10 @@ function App() {
           <Route path='/upload'>
             <Upload />
           </Route>
-          <Route path='/user/:id'>
-            {/* TODO: COMPLETE ROUTE */}
+          <Route path='/user/:username'>
+            <UserPage />
           </Route>
-          <Route path='/tracks/:id'>
+          <Route path={`/tracks/:id(\\d+)`}>
             <TrackPage />
           </Route>
           <Route>

@@ -3,12 +3,13 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import uiReducer from './ui';
 import trackReducer from './track';
+import playerReducer from './player';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     ui: uiReducer,
     track: trackReducer,
-    // player:
+    player: playerReducer,
 });
 
 let enhancer;

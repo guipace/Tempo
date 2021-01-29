@@ -2,7 +2,7 @@
 export default function Footer() {
 
     return (
-        <footer className='w-screen bottom-0 flex justify-around bg-silver'>
+        <footer className='w-screen bottom-0 flex justify-around bg-space-cadet text-silver'>
             <div className="flex py-2 flex-col justify-center items-center">
                 <p>About The Developer</p>
                 <div className="w-full flex py-2 flex justify-around items-center">

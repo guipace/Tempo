@@ -31,7 +31,7 @@ const TrackPage = () => {
                 <TrackMainInfo track={storeTrack}/>
                 <div className='grid grid-cols-2'>
                     <UserCard track={storeTrack}/>
-                    <CommentNew track={storeTrack}/>
+                    <CommentNew track={storeTrack} sessionUser={sessionUser}/>
                 </div>
                 <div className='grid grid-cols-2'>
                 <div className='px-16 py-5'>

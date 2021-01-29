@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Slider } from "antd";
+import { Button } from "antd";
 import WaveSurfer from "wavesurfer.js";
 
 const formWaveSurferOptions = (ref) => ({
@@ -16,7 +16,9 @@ const formWaveSurferOptions = (ref) => ({
     hideScrollbar: true,
 });
 
-export function TrackWaveForm({ url }) {
+export function TrackWaveForm({ track }) {
+    let url = track.awsUrl;
+
     if (!url) {
     url =
         "https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3";
@@ -39,8 +41,8 @@ export function TrackWaveForm({ url }) {
       // setPlay(true);
       // make sure object stillavailable when file loaded
         if (wavesurfer.current) {
-        wavesurfer.current.setVolume(volume);
-        setVolume(volume);
+            wavesurfer.current.setVolume(volume);
+            setVolume(volume);
         }
     });
     // Removes events, elements and disconnects Web Audio nodes.
@@ -63,31 +65,27 @@ export function TrackWaveForm({ url }) {
     };
 
     return (
-        <div className='shadow-2xl rounded'>
+        <div className='rounded'>
             <div id="waveform" ref={waveformRef} />
-                <div className="controls">
+                <div className="controls flex flex-row items-center">
                     <Button
-                    style={{
-                        background: "rgb(22, 22, 23)",
-                        color: "rgba(255, 255, 255, 0.65)",
-                        borderColor: "#001529",
-                    }}
-                    onClick={handlePlayPause}
+                        onClick={handlePlayPause}
+                        className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full'
                     >
-                    {!playing ? "Play" : "Pause"}
+                        {!playing ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
                     </Button>
                     <input
-                    className="slider"
-                    type="range"
-                    id="volume"
-                    name="volume"
-                    // waveSurfer recognize value of `0` same as `1`
-                    //  so we need to set some zero-ish value for silence
-                    min="0.01"
-                    max="1"
-                    step=".025"
-                    onChange={onVolumeChange}
-                    defaultValue={volume}
+                        className="slider w-1/6"
+                        type="range"
+                        id="volume"
+                        name="volume"
+                        // waveSurfer recognize value of `0` same as `1`
+                        //  so we need to set some zero-ish value for silence
+                        min="0.01"
+                        max="1"
+                        step=".025"
+                        onChange={onVolumeChange}
+                        defaultValue={volume}
                     />
             </div>
         </div>

@@ -25,7 +25,7 @@ export default function Navigation({ isLoaded }) {
     }
 
     return(
-        <nav className="w-screen fixed grid grid-cols-8 shadow h-10 bg-space-cadet">
+        <nav className="w-screen fixed grid grid-cols-8 shadow h-10 bg-space-cadet z-10">
             <div className="col-span-1 grid grid-cols-2">
                 <div className="flex justify-center items-center">
                     <span className="font-bold text-silver tracking-widest">TEMPO</span>
