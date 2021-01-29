@@ -16,6 +16,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 const singlePublicFileUpload = async (file) => {
 	const { originalname, mimetype, buffer } = await file;
   const path = require("path");
+
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
@@ -43,6 +44,7 @@ const multiplePublicFileUpload = async (files) => {
 const singlePrivateFileUpload = async (file) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
+
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
@@ -83,8 +85,9 @@ const storage = multer.memoryStorage({
   },
 });
 
-const singleMulterUpload = (nameOfKey) =>
-  multer({ storage: storage }).single(nameOfKey);
+const singleMulterUpload = (nameOfKey) =>{
+  return multer({ storage: storage }).single(nameOfKey)
+};
 const multipleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).array(nameOfKey);
 

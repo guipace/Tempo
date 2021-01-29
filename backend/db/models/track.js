@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 30]
+        len: [1, 200]
       },
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         min: {
@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       type: DataTypes.STRING,
-      validate: {
-        max: {
-          args: [100],
-        }
-      },
+      allowNull: false,
+    },
+    awsUrl: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,

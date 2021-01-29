@@ -3,8 +3,12 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
+import Home from './components/Home';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import Upload from './components/Upload';
+import TrackPage from './components/TrackPage';
+import UserPage from './components/User';
 import { restoreUser } from './store/session';
 
 function App() {
@@ -22,7 +26,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-
+            <Home />
           </Route>
           <Route path='/login'>
             <LoginFormPage />
@@ -30,14 +34,14 @@ function App() {
           <Route path='/signup'>
             <SignupFormPage />
           </Route>
-          <Route path='/home'>
-
+          <Route path='/upload'>
+            <Upload />
           </Route>
-          <Route path='/user/:id'>
-
+          <Route path='/user/:username'>
+            <UserPage />
           </Route>
-          <Route path='/track/:id'>
-
+          <Route path={`/tracks/:id(\\d+)`}>
+            <TrackPage />
           </Route>
           <Route>
             <h1>PAGE NOT FOUND</h1>
