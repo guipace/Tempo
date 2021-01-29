@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
+import Home from './components/Home';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Upload from './components/Upload';
@@ -25,7 +26,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            {/* TODO: COMPLETE HOME ROUTE */}
+            <Home />
           </Route>
           <Route path='/login'>
             <LoginFormPage />

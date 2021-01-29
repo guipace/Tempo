@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Track, Comment } = require('../../db/models');
+const { User, Track, Comment, Genre } = require('../../db/models');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
@@ -46,7 +46,14 @@ router.get(
             where: {
                 username: req.params.username,
             },
-            include: [ Track, Comment ]
+            // include: [ Track, Comment ]
+            include: [
+                {
+                    model: Track,
+                    include: Genre
+                },
+                Comment
+            ]
         });
 
         if(user) {

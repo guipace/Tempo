@@ -3,7 +3,6 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const Sequelize = require('sequelize');
 const { Track, User, Genre } = require('../../db/models');
-// const { handleValidationErrors } = require('../../utils/validation');
 const {
     singleMulterUpload,
     singlePublicFileUpload,

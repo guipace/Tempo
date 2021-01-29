@@ -25,9 +25,11 @@ const UserPage = () => {
             {targetUser && (
             <>
                 <UserMainInfo user={targetUser}/>
-                <div className=''>
-                    <h1 className=''>Your Tracks</h1>
-                    {/* <TrackCard user={targetUser}/> */}
+                <div className='p-10'>
+                    <h1 className='text-4xl text-mandarin pl-5 py-2 bg-gradient-to-r from-silver via-white to-white rounded'>Your Tracks</h1>
+                    <div className='px-5'>
+                        {targetUser.Tracks.map((track => <TrackCard track={track}/>))}
+                    </div>
                 </div>
             </>
             )}
