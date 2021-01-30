@@ -74,7 +74,7 @@ export function TrackWaveForm({ track }) {
                     >
                         {!playing ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
                     </Button>
-                    <input
+                    {/* <input
                         className="slider w-1/6 "
                         type="range"
                         id="volume"
@@ -86,7 +86,7 @@ export function TrackWaveForm({ track }) {
                         step=".025"
                         onChange={onVolumeChange}
                         defaultValue={volume}
-                    />
+                    /> */}
             </div>
         </div>
     );

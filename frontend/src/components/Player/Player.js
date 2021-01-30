@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from "antd";
 import WaveSurfer from "wavesurfer.js";
+import { unloadTrack, playAudioTrack, stopTrack } from "../../store/player";
 
 const formWaveSurferOptions = (ref) => ({
     container: ref,
@@ -17,11 +18,15 @@ const formWaveSurferOptions = (ref) => ({
     hideScrollbar: true,
 });
 
+export let wavesurfer;
+
 export function Player() {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const currentTrack = useSelector(state => state.player.currentTrack);
+    const isPlaying = useSelector(state => state.player.isPlaying);
     const waveformRef = useRef(null);
-    const wavesurfer = useRef(null);
+    wavesurfer = useRef(null);
     const [playing, setPlay] = useState(false);
     const [volume, setVolume] = useState(0.5);
 
@@ -58,10 +63,24 @@ export function Player() {
     return () => wavesurfer.current.destroy();
     }, [url]);
 
+    useEffect(() => {
+        setPlay(isPlaying);
+
+
+    }, [isPlaying]);
+
     const handlePlayPause = () => {
-    setPlay(!playing);
+
+    if (isPlaying) { dispatch(stopTrack()) }
+    else { dispatch(playAudioTrack()) }
     wavesurfer.current.playPause();
     };
+
+    const handleStop = () => {
+
+        dispatch(stopTrack());
+        dispatch(unloadTrack());
+    }
 
     const onVolumeChange = (e) => {
     const { target } = e;
@@ -86,7 +105,7 @@ export function Player() {
                             {!playing ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
                         </Button>
                         <Button
-                            onClick={console.log('FIX STOP BUTTON')}
+                            onClick={handleStop}
                             className='text-white hover:text-mandarin font-bold h-10 w-10 mr-5 rounded-full focus:outline-none'
                         >
                             <i className="fas fa-stop"></i>

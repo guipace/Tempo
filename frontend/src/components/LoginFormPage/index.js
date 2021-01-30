@@ -25,7 +25,7 @@ const LoginFormPage = () => {
     };
 
     return (
-        <div className="w-screen mx-auto h-screen flex flex-col justify-center items-center bg-background2 bg-center bg-cover">
+        <div className="w-full mx-auto h-screen flex flex-col justify-center items-center bg-background2 bg-center bg-cover">
             <form onSubmit={handleSubmit} className="px-8 py-4 w-1/3 mb-4 border-t-8 border-independence rounded-lg shadow-lg bg-white bg-opacity-90">
                 <h1 className="block text-2xl text-space-cadet my-2 text-center">Log-in to <span className="font-bold tracking-widest">TEMPO</span></h1>
                 <ul id="login-errors" className="block my-2 text-center text-red-600 font-bold">
