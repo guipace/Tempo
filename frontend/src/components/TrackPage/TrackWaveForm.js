@@ -70,12 +70,12 @@ export function TrackWaveForm({ track }) {
                 <div className="controls flex flex-row items-center">
                     <Button
                         onClick={handlePlayPause}
-                        className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full'
+                        className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full focus:outline-none'
                     >
                         {!playing ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
                     </Button>
                     <input
-                        className="slider w-1/6"
+                        className="slider w-1/6 "
                         type="range"
                         id="volume"
                         name="volume"

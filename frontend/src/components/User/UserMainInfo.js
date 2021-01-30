@@ -1,7 +1,6 @@
 
 const UserMainInfo = ({user}) => {
 
-    console.log(user);
     const joinedDateSplit = user.createdAt.split('-');
     const joinedDate = `${joinedDateSplit[1]}/${joinedDateSplit[2].slice(0,2)}/${joinedDateSplit[0]}`
 

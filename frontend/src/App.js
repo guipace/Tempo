@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import Home from './components/Home';
 import Navigation from './components/Navigation';
+import Player from './components/Player';
 import Footer from './components/Footer';
 import Upload from './components/Upload';
 import TrackPage from './components/TrackPage';
@@ -13,6 +14,7 @@ import { restoreUser } from './store/session';
 
 function App() {
   const dispatch = useDispatch();
+  const currentTrack = useSelector(state => state.player.currentTrack);
   const [ isLoaded, setIsLoaded ] = useState(false);
 
   useEffect(() => {
@@ -44,11 +46,12 @@ function App() {
             <TrackPage />
           </Route>
           <Route>
-            <h1>PAGE NOT FOUND</h1>
+            <h1 className='text-2xl'>PAGE NOT FOUND</h1>
           </Route>
         </Switch>
       )}
       <Footer />
+      {currentTrack && <Player />}
     </>
   );
 }

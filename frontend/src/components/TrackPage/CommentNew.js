@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { postComment } from '../../store/track';
 
 const CommentNew = ({track, sessionUser}) => {
     const dispatch = useDispatch();
@@ -15,7 +16,9 @@ const CommentNew = ({track, sessionUser}) => {
             trackId: track.id,
         }
 
-        // const trackDispatch = await dispatch(newTrack(newComment))
+        dispatch(postComment(track.id, newComment));
+
+        setContent('');
     };
 
     return (

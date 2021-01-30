@@ -1,28 +1,36 @@
 import { fetch } from './csrf';
 
-const SET_USER = 'session/setUser';
+const SET_TRACK = 'player/setTrack';
+const UNLOAD_TRACK = 'player/unloadTrack';
 
-const setUser = (user) => {
+const setTrack = (track) => {
     return {
-        type: SET_USER,
-        payload: user,
+        type: SET_TRACK,
+        payload: track,
     };
 };
 
-export const restoreUser = () => async (dispatch) => {
-    const res = await fetch('/api/session');
-    dispatch(setUser(res.data.user));
+export const playTrack = (id) => async (dispatch) => {
+    const res = await fetch(`/api/tracks/${id}`);
+
+    dispatch(setTrack(res.data.track));
+
     return res;
 }
 
-const initialState = { user: null };
+const initialState = { currentTrack: null };
 
 export default function playerReducer(state = initialState, action) {
     let newState;
+
     switch(action.type) {
-        case SET_USER:
+        case SET_TRACK:
             newState = Object.assign({}, state);
-            newState.user = action.payload;
+            newState.currentTrack = action.payload;
+            return newState;
+        case UNLOAD_TRACK:
+            newState = Object.assign({}, state);
+            newState.currentTrack = null;
             return newState;
         default:
             return state;

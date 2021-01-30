@@ -3,6 +3,7 @@ import { fetch } from './csrf';
 const ADD_TRACK = 'track/addTrack';
 const SELECT_TRACK = 'track/selectTrack';
 const CLEAR_TRACK = 'track/clearTrack';
+// const ADD_COMMENT = 'track/addComment';
 
 const addTrack = (track) => {
     return {
@@ -17,6 +18,13 @@ const selectTrack = (track) => {
         payload: track,
     };
 }
+
+// const addComment = (comment) => {
+//     return {
+//         type: ADD_COMMENT,
+//         payload: comment,
+//     }
+// }
 
 export const newTrack = (track) => async (dispatch) => {
     const { title, description, imageUrl, trackFile, userId, genreId } = track;
@@ -46,12 +54,24 @@ export const newTrack = (track) => async (dispatch) => {
 export const getTrack = (id) => async (dispatch) => {
     const res = await fetch(`/api/tracks/${id}`);
 
-    // console.log('THUNK', id, res.data);
-
     dispatch(selectTrack(res.data.track));
 
     return res.data.track;
-}
+};
+
+export const postComment = (trackId, comment) => async (dispatch) => {
+    const res = await fetch(`/api/tracks/${trackId}/comment`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(comment),
+    });
+
+    dispatch(getTrack(trackId));
+
+    return res.data.comment;
+};
 
 const initialState = { track: null };
 

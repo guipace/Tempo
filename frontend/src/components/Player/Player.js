@@ -1,127 +1,126 @@
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from "antd";
+import WaveSurfer from "wavesurfer.js";
+
+const formWaveSurferOptions = (ref) => ({
+    container: ref,
+    waveColor: "#BFC0C0",
+    progressColor: "#EA5C1F",
+    cursorColor: "transparent",
+    barWidth: 4,
+    barRadius: 1,
+    responsive: true,
+    height: 50,
+    normalize: true,
+    partialRender: true,
+    hideScrollbar: true,
+});
+
+export function Player() {
+    const sessionUser = useSelector(state => state.session.user);
+    const currentTrack = useSelector(state => state.player.currentTrack);
+    const waveformRef = useRef(null);
+    const wavesurfer = useRef(null);
+    const [playing, setPlay] = useState(false);
+    const [volume, setVolume] = useState(0.5);
+
+    let url;
+    if (currentTrack) {
+        url = currentTrack.awsUrl;
+    }
+
+    if (!url) {
+    url =
+        "https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3";
+    }
 
 
+  // create new WaveSurfer instance
+  // On component mount and when url changes
+    useEffect(() => {
+        setPlay(false);
+        const options = formWaveSurferOptions(waveformRef.current);
+        wavesurfer.current = WaveSurfer.create(options);
+        wavesurfer.current.load(url);
+        wavesurfer.current.on("ready", function () {
+        // https://wavesurfer-js.org/docs/methods.html
+        wavesurfer.current.play();
+        setPlay(true);
+        // make sure object stillavailable when file loaded
+        if (wavesurfer.current) {
+            wavesurfer.current.setVolume(volume);
+            setVolume(volume);
+        }
+    });
+    // Removes events, elements and disconnects Web Audio nodes.
+    // when component unmount
+    return () => wavesurfer.current.destroy();
+    }, [url]);
 
-const Player = () => {
+    const handlePlayPause = () => {
+    setPlay(!playing);
+    wavesurfer.current.playPause();
+    };
 
+    const onVolumeChange = (e) => {
+    const { target } = e;
+    const newVolume = +target.value;
+        if (newVolume) {
+            setVolume(newVolume);
+            wavesurfer.current.setVolume(newVolume || 1);
+        }
+    };
 
     return (
-        <div className="player">
-            <div className="player__inner container">
-            <div className="player__section player__section--song">
-                <div className="player__song">
-                <div className="player__song__artwork" style={{ backgroundImage: `url(${artworkUrl})` }} />
-                <div className="player__song__main">
-                    <Link
-                    className="player__song__title"
-                    navigateTo={navigateTo}
-                    keys={{ id }}
-                    path={SONG_PATH}
-                    >
-                    {title}
-                    </Link>
-                    <Link
-                    className="player__song__username"
-                    navigateTo={navigateTo}
-                    keys={{ id: user.id }}
-                    path={USER_PATH}
-                    >
-                    {username}
-                    </Link>
+        <>
+            {sessionUser &&
+            <>
+                <div id='placeholder-for-player' className='bottom-0 h-20 bg-space-cadet'></div>
+                <div className='fixed w-screen z-10 h-20 bottom-0 bg-space-cadet bg-opacity-80 px-10 text-silver flex flex-row items-center'>
+                    <div className='w-1/6 flex flex-row items-center'>
+                        <Button
+                            onClick={handlePlayPause}
+                            className='text-white hover:text-mandarin font-bold h-10 w-10 rounded-full focus:outline-none'
+                        >
+                            {!playing ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
+                        </Button>
+                        <Button
+                            onClick={console.log('FIX STOP BUTTON')}
+                            className='text-white hover:text-mandarin font-bold h-10 w-10 mr-5 rounded-full focus:outline-none'
+                        >
+                            <i className="fas fa-stop"></i>
+                        </Button>
+                        <div className='flex flex-col items-center flex-grow mr-5'>
+                            <div>Volume</div>
+                            <input
+                                className="slider w-36 mt-2"
+                                type="range"
+                                id="volume"
+                                name="volume"
+                                // waveSurfer recognize value of `0` same as `1`
+                                //  so we need to set some zero-ish value for silence
+                                min="0.01"
+                                max="1"
+                                step=".025"
+                                onChange={onVolumeChange}
+                                defaultValue={volume}
+                            />
+                        </div>
+                    </div>
+                    <div id="waveform" ref={waveformRef} className='flex-grow' />
+                    <div className='w-3/12 pl-5 flex flex-row items-center'>
+                        <div className='flex-initial'><img src={currentTrack.imageUrl} alt='Track' className='w-10 h-10 shadow-2xl rounded'></img></div>
+                        <div className='flex flex-col pl-5'>
+                            <div>{currentTrack.User.username}</div>
+                            <div>{currentTrack.title}</div>
+                        </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-            <div className="player__section">
-                <div className="player__buttons">
-                <div
-                    className="player__button"
-                    onClick={playPrevSong}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className="player__button__icon ion-ios-rewind" />
-                </div>
-                <div
-                    className="player__button"
-                    onClick={togglePlay}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className={`player__button__icon ion-ios-${isPlaying ? 'pause' : 'play'}`} />
-                </div>
-                <div
-                    className="player__button"
-                    onClick={playNextSongFromButton}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className="player__button__icon ion-ios-fastforward" />
-                </div>
-                </div>
-            </div>
-            <div className="player__section player__section--seek">
-                <Slider
-                max={duration}
-                onChange={changeCurrentTime}
-                value={currentTime}
-                />
-            </div>
-            <div className="player__section player__section--time">
-                <div className="player__time">
-                {formatSeconds(currentTime)}
-                <div className="player__time__separator">
-                    /
-                </div>
-                {formatSeconds(duration)}
-                </div>
-            </div>
-            <div className="player__section player__section--options">
-                <div className="player__buttons player__buttons--options">
-                <div
-                    className={`player__button ${repeat ? 'player__button--active' : ''}`}
-                    onClick={toggleRepeat}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className="player__button__icon ion-loop" />
-                </div>
-                <div
-                    className={`player__button ${shuffle ? 'player__button--active' : ''}`}
-                    onClick={toggleShuffle}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className="player__button__icon ion-shuffle" />
-                </div>
-                <div
-                    className={`player__button ${showHistory ? 'player__button--active' : ''}`}
-                    onClick={toggleShowHistory}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className="player__button__icon ion-android-list" />
-                </div>
-                <div
-                    className="player__button player__button--volume"
-                    onClick={toggleMuted}
-                    role="button"
-                    tabIndex="0"
-                >
-                    <i className={`player__button__icon ion-android-volume-${muted ? 'off' : 'mute'}`} />
-                    <i className={`player__button__icon player__button__icon--absolute ${volumeClassName(volume)}`} />
-                </div>
-                </div>
-            </div>
-            <div className="player__section player__section--volume">
-                <Slider
-                max={1}
-                onChange={changeVolume}
-                value={volume}
-                />
-            </div>
-            </div>
-        </div>
+            </>
+            }
+        </>
     );
-
-};
+}
 
 export default Player;
