@@ -40,7 +40,6 @@ export function Player() {
         "https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3";
     }
 
-
   // create new WaveSurfer instance
   // On component mount and when url changes
     useEffect(() => {
@@ -49,15 +48,15 @@ export function Player() {
         wavesurfer.current = WaveSurfer.create(options);
         wavesurfer.current.load(url);
         wavesurfer.current.on("ready", function () {
-        // https://wavesurfer-js.org/docs/methods.html
-        wavesurfer.current.play();
-        setPlay(true);
-        // make sure object stillavailable when file loaded
-        if (wavesurfer.current) {
-            wavesurfer.current.setVolume(volume);
-            setVolume(volume);
-        }
-    });
+            // https://wavesurfer-js.org/docs/methods.html
+            wavesurfer.current.play();
+            setPlay(true);
+            // make sure object stillavailable when file loaded
+            if (wavesurfer.current) {
+                wavesurfer.current.setVolume(volume);
+                setVolume(volume);
+            }
+        });
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy();
@@ -65,15 +64,13 @@ export function Player() {
 
     useEffect(() => {
         setPlay(isPlaying);
-
-
     }, [isPlaying]);
 
     const handlePlayPause = () => {
 
-    if (isPlaying) { dispatch(stopTrack()) }
-    else { dispatch(playAudioTrack()) }
-    wavesurfer.current.playPause();
+        if (isPlaying) { dispatch(stopTrack()) }
+        else { dispatch(playAudioTrack()) }
+        wavesurfer.current.playPause();
     };
 
     const handleStop = () => {

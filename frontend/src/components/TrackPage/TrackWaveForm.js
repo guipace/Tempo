@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button } from "antd";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import WaveSurfer from "wavesurfer.js";
+import { playTrack, playAudioTrack, stopTrack } from '../../store/player';
+import { wavesurfer as wavesurferPlayer } from '../Player/Player';
 
 const formWaveSurferOptions = (ref) => ({
     container: ref,
@@ -17,6 +19,9 @@ const formWaveSurferOptions = (ref) => ({
 });
 
 export function TrackWaveForm({ track }) {
+    const dispatch = useDispatch();
+    const currentTrack = useSelector(state => state.player.currentTrack);
+    const isPlaying = useSelector(state => state.player.isPlaying);
     let url = track.awsUrl;
 
     if (!url) {
@@ -25,68 +30,69 @@ export function TrackWaveForm({ track }) {
     }
     const waveformRef = useRef(null);
     const wavesurfer = useRef(null);
-    const [playing, setPlay] = useState(false);
-    const [volume, setVolume] = useState(0.5);
+    const currentTime = useRef(null);
 
   // create new WaveSurfer instance
   // On component mount and when url changes
     useEffect(() => {
-        setPlay(false);
         const options = formWaveSurferOptions(waveformRef.current);
         wavesurfer.current = WaveSurfer.create(options);
         wavesurfer.current.load(url);
         wavesurfer.current.on("ready", function () {
-      // https://wavesurfer-js.org/docs/methods.html
-      // wavesurfer.current.play();
-      // setPlay(true);
-      // make sure object stillavailable when file loaded
-        if (wavesurfer.current) {
-            wavesurfer.current.setVolume(volume);
-            setVolume(volume);
-        }
-    });
-    // Removes events, elements and disconnects Web Audio nodes.
-    // when component unmount
-    return () => wavesurfer.current.destroy();
+            // https://wavesurfer-js.org/docs/methods.html
+            wavesurfer.current.setVolume(0.001);
+            // wavesurfer.current.play();
+            // make sure object stillavailable when file loaded
+        });
+        // Removes events, elements and disconnects Web Audio nodes.
+        // when component unmount
+        return () => wavesurfer.current.destroy();
     }, [url]);
 
-    const handlePlayPause = () => {
-    setPlay(!playing);
-    wavesurfer.current.playPause();
-    };
+    useEffect(() => {
+            if (currentTrack &&
+                track.id === currentTrack.id &&
+                wavesurferPlayer &&
+                wavesurferPlayer.current) {
+                    wavesurfer.current.on("ready", function () {
+                        wavesurferPlayer.current.on('audioprocess', () => {
+                            wavesurfer.current.seekTo(wavesurferPlayer.current.getCurrentTime() / wavesurferPlayer.current.getDuration());
+                        })
+                    });
+                }
+    }, [track.id, currentTrack, isPlaying, currentTime])
 
-    const onVolumeChange = (e) => {
-    const { target } = e;
-    const newVolume = +target.value;
-        if (newVolume) {
-            setVolume(newVolume);
-            wavesurfer.current.setVolume(newVolume || 1);
+    const handleClickLoaded = async (e) => {
+        e.preventDefault();
+
+        if (isPlaying) {
+            wavesurferPlayer.current.pause();
+            dispatch(stopTrack())
         }
-    };
+        else {
+            wavesurferPlayer.current.play();
+            dispatch(playAudioTrack())
+        }
+
+        return dispatch(playTrack(track.id))
+    }
+
+    const handleClickUnloaded = async (e) => {
+        e.preventDefault();
+
+        dispatch(playAudioTrack())
+        return dispatch(playTrack(track.id))
+    }
 
     return (
         <div className='rounded'>
             <div id="waveform" ref={waveformRef} />
-                <div className="controls flex flex-row items-center">
-                    <Button
-                        onClick={handlePlayPause}
-                        className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full focus:outline-none'
-                    >
-                        {!playing ? <i className="fas fa-play"></i> : <i className="fas fa-pause"></i>}
-                    </Button>
-                    {/* <input
-                        className="slider w-1/6 "
-                        type="range"
-                        id="volume"
-                        name="volume"
-                        // waveSurfer recognize value of `0` same as `1`
-                        //  so we need to set some zero-ish value for silence
-                        min="0.01"
-                        max="1"
-                        step=".025"
-                        onChange={onVolumeChange}
-                        defaultValue={volume}
-                    /> */}
+            <div className="controls flex flex-row items-center">
+                {currentTrack && (track.id === currentTrack.id ?
+                                    <button onClick={handleClickLoaded} className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full flex justify-center items-center focus:outline-none'>{isPlaying ? <i className="fas fa-pause"></i> : <i className="fas fa-play"></i>}</button> :
+                                    <button onClick={handleClickUnloaded} className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full flex justify-center items-center focus:outline-none'><i className="fas fa-play"></i></button>)
+                }
+                {!currentTrack && <button onClick={handleClickUnloaded} className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full flex justify-center items-center focus:outline-none'><i className="fas fa-play"></i></button>}
             </div>
         </div>
     );

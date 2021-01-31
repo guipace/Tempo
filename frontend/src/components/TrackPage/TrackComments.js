@@ -2,8 +2,6 @@
 
 const TrackComments = ({ track }) => {
 
-    console.log('COMMENTS', track.Comments);
-
     return (
         <>
             {track.Comments &&
