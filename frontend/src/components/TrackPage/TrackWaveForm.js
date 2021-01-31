@@ -30,37 +30,59 @@ export function TrackWaveForm({ track }) {
     }
     const waveformRef = useRef(null);
     const wavesurfer = useRef(null);
-    const currentTime = useRef(null);
+    const wavesurferSameTrack = useRef(null);
 
   // create new WaveSurfer instance
   // On component mount and when url changes
     useEffect(() => {
-        const options = formWaveSurferOptions(waveformRef.current);
-        wavesurfer.current = WaveSurfer.create(options);
-        wavesurfer.current.load(url);
-        wavesurfer.current.on("ready", function () {
-            // https://wavesurfer-js.org/docs/methods.html
-            wavesurfer.current.setVolume(0.001);
-            // wavesurfer.current.play();
-            // make sure object stillavailable when file loaded
-        });
-        // Removes events, elements and disconnects Web Audio nodes.
-        // when component unmount
-        return () => wavesurfer.current.destroy();
-    }, [url]);
+        if(currentTrack &&
+            track.id === currentTrack.id &&
+            wavesurferPlayer &&
+            wavesurferPlayer.current
+            ) {
+            const options = formWaveSurferOptions(waveformRef.current);
+            wavesurferSameTrack.current = WaveSurfer.create(options);
+            wavesurferSameTrack.current.load(url);
+            wavesurferSameTrack.current.on("ready", function () {
+                // https://wavesurfer-js.org/docs/methods.html
+                wavesurferSameTrack.current.setVolume(0.001);
+                // wavesurfer.current.play();
+                // make sure object stillavailable when file loaded
+            });
+            // Removes events, elements and disconnects Web Audio nodes.
+            // when component unmount
+            return () => wavesurferSameTrack.current.destroy();
+        }
+        else {
+            const options = formWaveSurferOptions(waveformRef.current);
+            wavesurfer.current = WaveSurfer.create(options);
+            wavesurfer.current.load(url);
+            wavesurfer.current.on("ready", function () {
+                // https://wavesurfer-js.org/docs/methods.html
+                wavesurfer.current.setVolume(0.001);
+                // wavesurfer.current.play();
+                // make sure object stillavailable when file loaded
+            });
+            // Removes events, elements and disconnects Web Audio nodes.
+            // when component unmount
+            return () => wavesurfer.current.destroy();
+        }
+    }, [url, currentTrack, track.id]);
 
     useEffect(() => {
+        setTimeout(() => {
             if (currentTrack &&
                 track.id === currentTrack.id &&
                 wavesurferPlayer &&
                 wavesurferPlayer.current) {
-                    wavesurfer.current.on("ready", function () {
-                        wavesurferPlayer.current.on('audioprocess', () => {
-                            wavesurfer.current.seekTo(wavesurferPlayer.current.getCurrentTime() / wavesurferPlayer.current.getDuration());
-                        })
-                    });
+                    wavesurferPlayer.current.on('audioprocess', () => {
+                        wavesurferSameTrack.current.seekTo(wavesurferPlayer.current.getCurrentTime() / wavesurferPlayer.current.getDuration());
+                    })
+                } else {
+                    wavesurfer.current.seekTo(0);
                 }
-    }, [track.id, currentTrack, isPlaying, currentTime])
+        }, 500)
+    }, [track.id, currentTrack])
 
     const handleClickLoaded = async (e) => {
         e.preventDefault();
