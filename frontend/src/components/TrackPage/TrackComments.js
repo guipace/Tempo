@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 
 const TrackComments = ({ track }) => {
 
@@ -30,7 +30,7 @@ const TrackComments = ({ track }) => {
                                                             </div>
                                                             <div className="ml-4">
                                                                 <div className="text-sm font-medium text-gray-900">
-                                                                {comment.User.firstName}
+                                                                <Link to={`/user/${comment.User.username}`}>{comment.User.firstName}</Link>
                                                                 </div>
                                                             </div>
                                                         </div>

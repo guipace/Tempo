@@ -27,7 +27,7 @@ const CommentNew = ({track, sessionUser}) => {
             <>
                 <div className='self-center	pl-10 pr-10 pt-10'>
                     <form onSubmit={handleSubmit} className="flex flex-row border-independence items-center rounded-lg">
-                        <img src={track.User.avatarUrl} alt='User' className='h-10 w-10 mr-4 rounded-full'></img>
+                        <img src={sessionUser.avatarUrl} alt='User' className='h-10 w-10 mr-4 rounded-full'></img>
                         <textarea
                                 placeholder='Post a comment'
                                 value={content}
