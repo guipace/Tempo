@@ -21,7 +21,7 @@ module.exports = {
         firstName: 'Demo User',
         lastName: 'Demo User',
         websiteUrl: 'www.demo.user',
-        avatarUrl: 'https://drive.google.com/uc?export=view&id=12FNJt4xVnS1fMpExa4d-Pc7XIYD7tKOQ',
+        avatarUrl: '/img/userDefault.png',
         hashedPassword: bcrypt.hashSync('password'),
       },
       {
@@ -30,7 +30,7 @@ module.exports = {
         firstName: 'Erick',
         lastName: 'Webb',
         websiteUrl: 'www.erickwebb.com',
-        avatarUrl: 'https://drive.google.com/uc?export=view&id=12TXIa0cQwZtwq98CcXpZl8bRVqiVLYWO',
+        avatarUrl: '/img/user1.jpg',
         hashedPassword: bcrypt.hashSync('password'),
       },
       {
@@ -39,7 +39,7 @@ module.exports = {
         firstName: 'Clara',
         lastName: 'Crawford',
         websiteUrl: 'www.claracrawford.com',
-        avatarUrl: 'https://drive.google.com/uc?export=view&id=1a7beSah0zAjNwO8f8fwMaGEFwZJbxMOm',
+        avatarUrl: '/img/user2.jpg',
         hashedPassword: bcrypt.hashSync('password'),
       },
       {
@@ -48,7 +48,7 @@ module.exports = {
         firstName: 'Robert',
         lastName: 'Williams',
         websiteUrl: 'www.robertwilliams.com',
-        avatarUrl: 'https://drive.google.com/uc?export=view&id=1piv-mThm-l1fInCUPYMYpsE8NTyDTwZ_',
+        avatarUrl: '/img/user3.jpg',
         hashedPassword: bcrypt.hashSync('password'),
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
         firstName: 'Erica',
         lastName: 'Adams',
         websiteUrl: 'www.ericaadams.com',
-        avatarUrl: 'https://drive.google.com/uc?export=view&id=1NXvgO77YOHVs9ZsXh_kGM58RbqgV6NP4',
+        avatarUrl: '/img/user4.jpg',
         hashedPassword: bcrypt.hashSync('password'),
       },
     ], {});
