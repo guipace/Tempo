@@ -27,19 +27,19 @@ const TrackPage = () => {
     return (
         <>
             {storeTrack && (
-            <>
-                <TrackMainInfo track={storeTrack}/>
-                <div className='grid grid-cols-2'>
-                    <UserCard track={storeTrack}/>
-                    <CommentNew track={storeTrack} sessionUser={sessionUser}/>
-                </div>
-                <div className='grid grid-cols-2'>
-                <div className='px-16 py-5'>
-                    <p>{storeTrack.description}</p>
-                </div>
-                    <TrackComments track={storeTrack}/>
-                </div>
-            </>
+                <>
+                    <TrackMainInfo track={storeTrack}/>
+                    <div className='grid grid-cols-2'>
+                        <UserCard track={storeTrack}/>
+                        <CommentNew track={storeTrack} sessionUser={sessionUser}/>
+                    </div>
+                    <div className='grid grid-cols-2'>
+                    <div className='px-16 py-5'>
+                        <p>{storeTrack.description}</p>
+                    </div>
+                        <TrackComments track={storeTrack}/>
+                    </div>
+                </>
             )}
         </>
     );
