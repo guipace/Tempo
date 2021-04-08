@@ -40,25 +40,24 @@ export function Player() {
         "https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3";
     }
 
-  // create new WaveSurfer instance
-  // On component mount and when url changes
+    // Create new WaveSurfer instance on component mount and when url changes
     useEffect(() => {
         setPlay(false);
         const options = formWaveSurferOptions(waveformRef.current);
         wavesurfer.current = WaveSurfer.create(options);
         wavesurfer.current.load(url);
         wavesurfer.current.on("ready", function () {
-            // https://wavesurfer-js.org/docs/methods.html
             wavesurfer.current.play();
             setPlay(true);
-            // make sure object stillavailable when file loaded
+
+            // Make sure object still available when file loaded
             if (wavesurfer.current) {
                 wavesurfer.current.setVolume(volume);
                 setVolume(volume);
             }
         });
-    // Removes events, elements and disconnects Web Audio nodes.
-    // when component unmount
+
+    // Removes events, elements and disconnects Web Audio nodes when component unmounts
     return () => wavesurfer.current.destroy();
     }, [url]);
 
@@ -67,21 +66,19 @@ export function Player() {
     }, [isPlaying]);
 
     const handlePlayPause = () => {
-
         if (isPlaying) { dispatch(stopTrack()) }
         else { dispatch(playAudioTrack()) }
         wavesurfer.current.playPause();
     };
 
     const handleStop = () => {
-
         dispatch(stopTrack());
         dispatch(unloadTrack());
     }
 
     const onVolumeChange = (e) => {
-    const { target } = e;
-    const newVolume = +target.value;
+        const { target } = e;
+        const newVolume = +target.value;
         if (newVolume) {
             setVolume(newVolume);
             wavesurfer.current.setVolume(newVolume || 1);
@@ -114,8 +111,6 @@ export function Player() {
                                 type="range"
                                 id="volume"
                                 name="volume"
-                                // waveSurfer recognize value of `0` same as `1`
-                                //  so we need to set some zero-ish value for silence
                                 min="0.01"
                                 max="1"
                                 step=".025"
