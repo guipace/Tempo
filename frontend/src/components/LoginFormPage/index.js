@@ -26,8 +26,12 @@ const LoginFormPage = () => {
 
     return (
         <div className="w-full mx-auto mt-10 flex-1 py-5 flex flex-col justify-center items-center bg-background2 bg-center bg-cover">
+            <div className="p-1 bg-white bg-opacity-80 rounded mb-4">
+                <h1 className='text-2xl text-space-cadet m-2 text-center'>Welcome to <span className="font-bold tracking-widest">TEMPO</span></h1>
+                <h2 className='text-xl text-space-cadet m-2 text-center'>A sharing platform dedicated to electronic music aficionados</h2>
+            </div>
             <form onSubmit={handleSubmit} className="px-8 py-4 w-1/3 mb-4 border-t-8 border-independence rounded-lg shadow-lg bg-white bg-opacity-90">
-                <h1 className="block text-2xl text-space-cadet my-2 text-center">Log-in to <span className="font-bold tracking-widest">TEMPO</span></h1>
+                <h1 className="block text-2xl text-space-cadet my-2 text-center">Log-in</h1>
                 <ul id="login-errors" className="block my-2 text-center text-red-600 font-bold">
                     {inputErrors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
