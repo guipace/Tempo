@@ -27,7 +27,6 @@
 * [Bcryptjs](https://github.com/dcodeIO/bcrypt.js#readme)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Amazon Web Services S3](https://aws.amazon.com/s3/)
-* [Docker](https://www.docker.com/)
 * [FontAwesome](https://fontawesome.com/)
 * [TailwindCSS](https://tailwindcss.com)
 * [Heroku](https://heroku.com/)
