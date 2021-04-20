@@ -73,6 +73,21 @@ export const postComment = (trackId, comment) => async (dispatch) => {
     return res.data.comment;
 };
 
+export const deleteComment = (trackId, commentId) => async (dispatch) => {
+    console.log("THUNK =======")
+    const res = await fetch(`/api/tracks/${trackId}/${commentId}`, {
+        method: 'DELETE',
+        // headers: {
+        //     "Content-Type": "application/json"
+        // },
+        // body: JSON.stringify(commentId),
+    });
+
+    dispatch(getTrack(trackId));
+
+    return res.data.comment;
+};
+
 const initialState = { track: null };
 
 export default function trackReducer(state = initialState, action) {

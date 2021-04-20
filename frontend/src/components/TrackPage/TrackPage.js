@@ -37,7 +37,7 @@ const TrackPage = () => {
                     <div className='px-16 py-5'>
                         <p>{storeTrack.description}</p>
                     </div>
-                        <TrackComments track={storeTrack}/>
+                        <TrackComments track={storeTrack} sessionUser={sessionUser}/>
                     </div>
                 </div>
             )}

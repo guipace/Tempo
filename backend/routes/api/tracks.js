@@ -78,5 +78,21 @@ router.post(
     })
 );
 
+// Delete comment from track
+router.delete(
+    '/:id/:commentId',
+    asyncHandler(async (req, res) => {
+        console.log("COMMENT ID =====", req.params.commentId)
+        // const { commentId } = req.body;
+        await Comment.destroy({
+            where: {
+                id: req.params.commentId
+            }
+        });
+
+        return res.json("Comment Deleted");
+    })
+);
+
 
 module.exports = router;

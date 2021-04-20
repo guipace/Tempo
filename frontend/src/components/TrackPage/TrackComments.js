@@ -1,6 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteComment } from '../../store/track';
 
-const TrackComments = ({ track }) => {
+const TrackComments = ({ track, sessionUser }) => {
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -26,11 +29,16 @@ const TrackComments = ({ track }) => {
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             <div className="flex-shrink-0 h-10 w-10">
-                                                                <img className="h-10 w-10 rounded-full" src={comment.User.avatarUrl} alt=""></img>
+                                                                <img className="h-10 w-10 object-cover rounded-full" src={comment.User.avatarUrl} alt="user avatar"></img>
                                                             </div>
                                                             <div className="ml-4">
                                                                 <div className="text-sm font-medium text-gray-900">
-                                                                <Link to={`/user/${comment.User.username}`}>{comment.User.firstName}</Link>
+                                                                    <Link to={`/user/${comment.User.username}`}>{comment.User.firstName}</Link>
+                                                                    {comment.User.id === sessionUser.id &&
+                                                                    <>
+                                                                        <i className="fas fa-edit text-gray-600 text-sm transform hover:scale-110 ml-1 cursor-pointer"></i>
+                                                                        <i className="fas fa-trash-alt text-red-700 text-sm transform hover:scale-110 ml-1 cursor-pointer" onClick={() => {console.log("FRONTEND"); dispatch(deleteComment(track.id, comment.id))}}></i>
+                                                                    </>}
                                                                 </div>
                                                             </div>
                                                         </div>
