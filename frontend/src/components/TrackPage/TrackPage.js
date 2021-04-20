@@ -27,7 +27,7 @@ const TrackPage = () => {
     return (
         <>
             {storeTrack && (
-                <>
+                <div className='mt-10 flex-1'>
                     <TrackMainInfo track={storeTrack}/>
                     <div className='grid grid-cols-2'>
                         <UserCard track={storeTrack}/>
@@ -39,7 +39,7 @@ const TrackPage = () => {
                     </div>
                         <TrackComments track={storeTrack}/>
                     </div>
-                </>
+                </div>
             )}
         </>
     );

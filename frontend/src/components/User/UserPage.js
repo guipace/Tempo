@@ -23,7 +23,7 @@ const UserPage = () => {
     return (
         <>
             {targetUser && (
-            <>
+            <div className='mt-10 flex-1'>
                 <UserMainInfo user={targetUser}/>
                 <div className='p-10'>
                     <h1 className='text-4xl text-mandarin pl-5 py-2 bg-gradient-to-r from-silver via-white to-white rounded'>Your Tracks</h1>
@@ -31,7 +31,7 @@ const UserPage = () => {
                         {targetUser.Tracks.map((track => <TrackCard key={track.id} track={track}/>))}
                     </div>
                 </div>
-            </>
+            </div>
             )}
         </>
     );

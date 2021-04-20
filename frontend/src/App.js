@@ -22,9 +22,9 @@ function App() {
   }, [dispatch]);
 
   return isLoaded && (
-    <>
+    <div className='flex flex-col h-screen'>
       <Navigation isLoaded={isLoaded}/>
-      <div id='placeholder-for-navbar' className='h-10'></div>
+      {/* <div id='placeholder-for-navbar' className='h-10'></div> */}
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
@@ -52,7 +52,7 @@ function App() {
       )}
       <Footer />
       {currentTrack && <Player />}
-    </>
+    </div>
   );
 }
 
