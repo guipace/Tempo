@@ -40,6 +40,11 @@ const SignupFormPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      setInputErrors(["Your password doesn't match", ...inputErrors]);
+      return;
+    }
+
     const user = {
       username,
       firstName,
@@ -70,7 +75,7 @@ const SignupFormPage = () => {
             placeholder='Enter your username'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
+            // required
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>
@@ -81,7 +86,7 @@ const SignupFormPage = () => {
             placeholder='Enter your first name'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            required
+            // required
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>
@@ -92,7 +97,7 @@ const SignupFormPage = () => {
             placeholder='Enter your last name'
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            required
+            // required
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>
@@ -103,7 +108,7 @@ const SignupFormPage = () => {
             placeholder='Enter your e-mail'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            // required
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>
@@ -134,7 +139,7 @@ const SignupFormPage = () => {
             placeholder='Enter your password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            // required
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>
@@ -145,12 +150,12 @@ const SignupFormPage = () => {
             placeholder='Confirm your password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
+            // required
             className="block appearance-none w-full px-2 py-2 rounded shadow"
           />
         </label>
         <div className='my-2 flex justify-around'>
-                    <button type='submit' className="w-2/6 bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Register</button>
+                    <button type='submit' disabled={!!inputErrors.length} className={`w-2/6 ${!!inputErrors.length ? "bg-gray-400" : "bg-mandarin hover:bg-mandarin-dark"} text-white font-bold py-2 px-4 rounded`}>Register</button>
                     <button type='button' onClick={() => {dispatch(login({ credential: 'DemoUser', password: 'password' }))}} className="w-2/6 bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Demo User</button>
                 </div>
       </form>
