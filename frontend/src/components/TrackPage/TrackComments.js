@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteComment } from '../../store/track';
 
-const TrackComments = ({ track, sessionUser }) => {
+const TrackComments = ({ track, sessionUser, setUpdatedComment, setEditActive, setUpdatedCommentId }) => {
     const dispatch = useDispatch();
 
     return (
@@ -36,7 +36,7 @@ const TrackComments = ({ track, sessionUser }) => {
                                                                     <Link to={`/user/${comment.User.username}`}>{comment.User.firstName}</Link>
                                                                     {comment.User.id === sessionUser.id &&
                                                                     <>
-                                                                        <i className="fas fa-edit text-gray-600 text-sm transform hover:scale-110 ml-1 cursor-pointer"></i>
+                                                                        <i className="fas fa-edit text-gray-600 text-sm transform hover:scale-110 ml-1 cursor-pointer" onClick={() => {setEditActive(true); setUpdatedComment(comment.content); setUpdatedCommentId(comment.id)}}></i>
                                                                         <i className="fas fa-trash-alt text-red-700 text-sm transform hover:scale-110 ml-1 cursor-pointer" onClick={() => {dispatch(deleteComment(track.id, comment.id))}}></i>
                                                                     </>}
                                                                 </div>

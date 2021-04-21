@@ -92,5 +92,25 @@ router.delete(
     })
 );
 
+// Edit comment of track
+router.patch(
+    '/:id/:commentId',
+    asyncHandler(async (req, res) => {
+        const { content } = req.body;
+        const comment = await Comment.findByPk(req.params.commentId);
+
+        await comment.update({
+            content: content
+        });
+
+        const updatedComment = await Comment.findByPk(req.params.commentId);
+
+        if(updatedComment) {
+            return res.json({ updatedComment });
+        }
+        else return res.json({});
+    })
+);
+
 
 module.exports = router;

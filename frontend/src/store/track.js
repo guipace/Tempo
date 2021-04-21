@@ -3,7 +3,6 @@ import { fetch } from './csrf';
 const ADD_TRACK = 'track/addTrack';
 const SELECT_TRACK = 'track/selectTrack';
 const CLEAR_TRACK = 'track/clearTrack';
-// const ADD_COMMENT = 'track/addComment';
 
 const addTrack = (track) => {
     return {
@@ -18,13 +17,6 @@ const selectTrack = (track) => {
         payload: track,
     };
 }
-
-// const addComment = (comment) => {
-//     return {
-//         type: ADD_COMMENT,
-//         payload: comment,
-//     }
-// }
 
 export const newTrack = (track) => async (dispatch) => {
     const { title, description, imageUrl, trackFile, userId, genreId } = track;
@@ -77,6 +69,21 @@ export const deleteComment = (trackId, commentId) => async (dispatch) => {
 
     const res = await fetch(`/api/tracks/${trackId}/${commentId}`, {
         method: 'DELETE'
+    });
+
+    dispatch(getTrack(trackId));
+
+    return res.data.comment;
+};
+
+export const editComment = (trackId, commentId, content) => async (dispatch) => {
+
+    const res = await fetch(`/api/tracks/${trackId}/${commentId}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({content}),
     });
 
     dispatch(getTrack(trackId));

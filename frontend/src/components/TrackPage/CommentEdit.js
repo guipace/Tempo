@@ -1,23 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { postComment } from '../../store/track';
+import { editComment } from '../../store/track';
 
-const CommentNew = ({track, sessionUser}) => {
+const CommentEdit = ({track, sessionUser, setEditActive, updatedComment, setUpdatedComment, updatedCommentId, setUpdatedCommentId }) => {
     const dispatch = useDispatch();
-    const [ content, setContent ] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newComment = {
-            content,
-            userId: sessionUser.id,
-            trackId: track.id,
-        }
-
-        dispatch(postComment(track.id, newComment));
-
-        setContent('');
+        dispatch(editComment(track.id, updatedCommentId, updatedComment));
+        setEditActive(false);
     };
 
     return (
@@ -29,12 +21,12 @@ const CommentNew = ({track, sessionUser}) => {
                         <img src={sessionUser.avatarUrl} alt='User' className='h-10 w-10 mr-4 rounded-full'></img>
                         <textarea
                                 placeholder='Post a comment'
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
+                                value={updatedComment}
+                                onChange={(e) => setUpdatedComment(e.target.value)}
                                 required
                                 className="appearance-none flex-grow px-2 py-2 h-10 mr-4 rounded shadow"
                         />
-                        <button type='submit' className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Comment</button>
+                        <button type='submit' className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Update</button>
                     </form>
                 </div>
             </>
@@ -43,4 +35,4 @@ const CommentNew = ({track, sessionUser}) => {
     );
 }
 
-export default CommentNew;
+export default CommentEdit;
