@@ -74,13 +74,9 @@ export const postComment = (trackId, comment) => async (dispatch) => {
 };
 
 export const deleteComment = (trackId, commentId) => async (dispatch) => {
-    console.log("THUNK =======")
+
     const res = await fetch(`/api/tracks/${trackId}/${commentId}`, {
-        method: 'DELETE',
-        // headers: {
-        //     "Content-Type": "application/json"
-        // },
-        // body: JSON.stringify(commentId),
+        method: 'DELETE'
     });
 
     dispatch(getTrack(trackId));

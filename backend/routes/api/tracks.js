@@ -82,8 +82,6 @@ router.post(
 router.delete(
     '/:id/:commentId',
     asyncHandler(async (req, res) => {
-        console.log("COMMENT ID =====", req.params.commentId)
-        // const { commentId } = req.body;
         await Comment.destroy({
             where: {
                 id: req.params.commentId

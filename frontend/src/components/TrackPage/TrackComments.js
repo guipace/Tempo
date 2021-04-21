@@ -37,7 +37,7 @@ const TrackComments = ({ track, sessionUser }) => {
                                                                     {comment.User.id === sessionUser.id &&
                                                                     <>
                                                                         <i className="fas fa-edit text-gray-600 text-sm transform hover:scale-110 ml-1 cursor-pointer"></i>
-                                                                        <i className="fas fa-trash-alt text-red-700 text-sm transform hover:scale-110 ml-1 cursor-pointer" onClick={() => {console.log("FRONTEND"); dispatch(deleteComment(track.id, comment.id))}}></i>
+                                                                        <i className="fas fa-trash-alt text-red-700 text-sm transform hover:scale-110 ml-1 cursor-pointer" onClick={() => {dispatch(deleteComment(track.id, comment.id))}}></i>
                                                                     </>}
                                                                 </div>
                                                             </div>
