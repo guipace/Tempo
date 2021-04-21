@@ -35,6 +35,20 @@ router.post(
 	else return res.json({});
 }));
 
+// Delete track
+router.delete(
+    '/:id',
+    asyncHandler(async (req, res) => {
+
+        await Track.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        return res.json("Track Deleted");
+}));
+
 // Get track info
 router.get(
     '/:id',

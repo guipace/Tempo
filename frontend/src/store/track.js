@@ -16,7 +16,13 @@ const selectTrack = (track) => {
         type: SELECT_TRACK,
         payload: track,
     };
-}
+};
+
+const clearTrack = () => {
+    return {
+        type: CLEAR_TRACK,
+    };
+};
 
 export const newTrack = (track) => async (dispatch) => {
     const { title, description, imageUrl, trackFile, userId, genreId } = track;
@@ -41,6 +47,17 @@ export const newTrack = (track) => async (dispatch) => {
     dispatch(addTrack(res.data.newTrack));
 
     return res.data.newTrack;
+};
+
+export const deleteTrack = (trackId) => async (dispatch) => {
+
+    const res = await fetch(`/api/tracks/${trackId}`, {
+        method: 'DELETE'
+    });
+
+    dispatch(clearTrack());
+
+    return res.data.comment;
 };
 
 export const getTrack = (id) => async (dispatch) => {

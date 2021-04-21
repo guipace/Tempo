@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router";
 import WaveSurfer from "wavesurfer.js";
 import { playTrack, playAudioTrack, stopTrack } from '../../store/player';
+import { deleteTrack } from '../../store/track';
 import { wavesurfer as wavesurferPlayer } from '../Player/Player';
 
 const formWaveSurferOptions = (ref) => ({
@@ -19,7 +21,9 @@ const formWaveSurferOptions = (ref) => ({
 });
 
 export function TrackWaveForm({ track }) {
+    const history = useHistory();
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
     const currentTrack = useSelector(state => state.player.currentTrack);
     const isPlaying = useSelector(state => state.player.isPlaying);
     let url = track.awsUrl;
@@ -97,14 +101,20 @@ export function TrackWaveForm({ track }) {
         }
 
         return dispatch(playTrack(track.id))
-    }
+    };
 
     const handleClickUnloaded = async (e) => {
         e.preventDefault();
 
         dispatch(playAudioTrack())
         return dispatch(playTrack(track.id))
-    }
+    };
+
+    const handleDeleteTrack = () => {
+        dispatch(deleteTrack(track.id));
+
+        history.push(`/`);
+    };
 
     return (
         <div className='rounded'>
@@ -115,6 +125,11 @@ export function TrackWaveForm({ track }) {
                                     <button onClick={handleClickUnloaded} className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full flex justify-center items-center focus:outline-none'><i className="fas fa-play"></i></button>)
                 }
                 {!currentTrack && <button onClick={handleClickUnloaded} className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full flex justify-center items-center focus:outline-none'><i className="fas fa-play"></i></button>}
+                {sessionUser && sessionUser.id === track.userId &&
+                <div className="flex-grow flex justify-end gap-1">
+                    <button onClick={() => {console.log("EDIT BUTTON")}} className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Edit</button>
+                    <button onClick={handleDeleteTrack} className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Delete</button>
+                </div>}
             </div>
         </div>
     );
