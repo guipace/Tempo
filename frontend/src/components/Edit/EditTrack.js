@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { getGenres, removeGenres } from '../../store/ui';
-import { getTrack } from '../../store/track';
+import { editTrack, getTrack } from '../../store/track';
 
 const EditTrack = () => {
   const { id } = useParams();
@@ -58,15 +58,17 @@ const EditTrack = () => {
       const track = {
           title,
           description,
-          imageUrl: imageUrl || '/img/trackDefault.jfif',
+          imageUrl,
           trackFile,
           userId: sessionUser.id,
           genreId,
       }
 
-      // const trackDispatch = await dispatch(newTrack(track))
+      const trackDispatch = await dispatch(editTrack(id, track))
 
-      // history.push(`/tracks/${trackDispatch.id}`)
+      if (trackDispatch.updatedTrack) {
+        history.push(`/tracks/${id}`);
+      }
   };
 
   return (
@@ -128,7 +130,6 @@ const EditTrack = () => {
             <input
                 type='file'
                 onChange={(e) => setTrackFile(e.target.files[0])}
-                required
                 className="block appearance-none w-full bg-white px-2 py-2 rounded shadow"
             />
         </label>

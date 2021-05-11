@@ -49,6 +49,20 @@ export const newTrack = (track) => async (dispatch) => {
     return res.data.newTrack;
 };
 
+export const editTrack = (trackId, track) => async (dispatch) => {
+    const res = await fetch(`/api/tracks/${trackId}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({track}),
+    });
+
+    dispatch(getTrack(trackId));
+
+    return res.data;
+}
+
 export const deleteTrack = (trackId) => async (dispatch) => {
 
     const res = await fetch(`/api/tracks/${trackId}`, {

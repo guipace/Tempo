@@ -35,6 +35,36 @@ router.post(
 	else return res.json({});
 }));
 
+// Edit track
+router.patch(
+    '/:id',
+    asyncHandler(async (req, res) => {
+        const { title, description, imageUrl, userId, genreId } = req.body.track;
+
+        const track = await Track.findByPk(req.params.id);
+
+        let updatedTrack = await track.update({
+            title: title,
+            description: description,
+            imageUrl: imageUrl,
+            userId: userId,
+            genreId: genreId
+        })
+
+        if (req.file) {
+            const awsUrl = await singlePublicFileUpload(req.file);
+            updatedTrack = await track.update({
+                awsUrl: awsUrl
+            })
+        }
+
+        if(updatedTrack) {
+            return res.json({ updatedTrack });
+        }
+        else return res.json({});
+    })
+);
+
 // Delete track
 router.delete(
     '/:id',
