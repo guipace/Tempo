@@ -21,7 +21,6 @@ const TrackPage = () => {
     //HIT BACKEND ROUTE TO LOAD TRACK INTO STORE
     useEffect(() => {
         dispatch(getTrack(id));
-        // return dispatch(removeGenres());
     }, [id, dispatch]);
 
     if (!sessionUser) return (

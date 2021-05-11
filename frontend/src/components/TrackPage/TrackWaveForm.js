@@ -127,7 +127,7 @@ export function TrackWaveForm({ track }) {
                 {!currentTrack && <button onClick={handleClickUnloaded} className='bg-mandarin hover:bg-mandarin-dark text-white font-bold h-14 w-14 mr-5 rounded-full flex justify-center items-center focus:outline-none'><i className="fas fa-play"></i></button>}
                 {sessionUser && sessionUser.id === track.userId &&
                 <div className="flex-grow flex justify-end gap-1">
-                    <button onClick={() => {console.log("EDIT BUTTON")}} className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Edit</button>
+                    <button onClick={() => {history.push(`/tracks/${track.id}/edit`)}} className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Edit</button>
                     <button onClick={handleDeleteTrack} className="bg-mandarin hover:bg-mandarin-dark text-white font-bold py-2 px-4 rounded">Delete</button>
                 </div>}
             </div>

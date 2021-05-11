@@ -11,6 +11,7 @@ import Upload from './components/Upload';
 import TrackPage from './components/TrackPage';
 import UserPage from './components/User';
 import { restoreUser } from './store/session';
+import EditTrack from './components/Edit/EditTrack';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,8 +43,11 @@ function App() {
           <Route path='/user/:username'>
             <UserPage />
           </Route>
-          <Route path={`/tracks/:id(\\d+)`}>
+          <Route exact path={`/tracks/:id(\\d+)`}>
             <TrackPage />
+          </Route>
+          <Route path={`/tracks/:id(\\d+)/edit`}>
+            <EditTrack />
           </Route>
           <Route>
             <h1 className='text-2xl'>PAGE NOT FOUND</h1>
