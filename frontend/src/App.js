@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
-import Home from './components/Home';
+import LandingPage from './components/LandingPage';
 import Navigation from './components/Navigation';
 import Player from './components/Player';
 import Footer from './components/Footer';
@@ -29,7 +29,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            <Home />
+            <LandingPage />
           </Route>
           <Route path='/login'>
             <LoginFormPage />

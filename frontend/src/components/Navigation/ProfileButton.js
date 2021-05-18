@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { logout } from '../../store/session';
 
 export default function ProfileButton({ user }) {
@@ -43,9 +43,10 @@ export default function ProfileButton({ user }) {
             </div>
             {showMenu && (
                 <ul className="profile-dropdown fixed top-10 right-0 bg-space-cadet text-silver">
+                    <Link to={`/user/${sessionUser.username}`}><li className="p-2 hover:bg-independence hover:text-white cursor-pointer">My Profile</li></Link>
                     <li className="p-2">{`Username: ${sessionUser.username}`}</li>
                     <li className="p-2">{`E-mail: ${sessionUser.email}`}</li>
-                    <li onClick={logoutUser} className="p-2 hover:bg-independence hover:text-white">Log Out</li>
+                    <li onClick={logoutUser} className="p-2 hover:bg-independence hover:text-white cursor-pointer">Log Out</li>
                 </ul>
             )}
         </>
